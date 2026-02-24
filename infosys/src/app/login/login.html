@@ -1,0 +1,83 @@
+<div class="relative min-h-screen flex items-center justify-center p-4">
+  <div class="hub-overlay"></div>
+  
+  <div class="w-full max-w-md animate-in fade-in slide-in-from-bottom-4 duration-700 relative z-10">
+    <div class="card-glass p-10 md:p-12 space-y-8">
+      
+      <!-- Branding Section -->
+      <div class="flex flex-col items-center text-center space-y-4">
+        <div class="bg-gradient-to-br from-purple-600 to-purple-700 p-4 rounded-2xl shadow-xl shadow-purple-200 dark:shadow-purple-900/50 mb-2 transform hover:scale-105 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">CampusEventHub</h1>
+          <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Sign in to your account securely</p>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form class="space-y-6" (submit)="$event.preventDefault(); onLogin()">
+        
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200">Account Type</label>
+          <div class="relative">
+            <select name="role" [(ngModel)]="loginData.role" (change)="onRoleChange()" class="input-pro appearance-none font-semibold">
+              <option value="">Select account type</option>
+              <option value="student">🎓 Student Account</option>
+              <option value="admin">🔐 Admin / Organizer Account</option>
+            </select>
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 dark:text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200">Registration Number</label>
+          <input type="text" name="regNumber" [(ngModel)]="loginData.regNumber" placeholder="e.g., STU-2024001" class="input-pro font-semibold">
+        </div>
+
+        <!-- Admin Secret Key (conditional) -->
+        <div class="space-y-2" *ngIf="loginData.role === 'admin'">
+          <label class="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">🔑 Admin Secret Key</label>
+          <input type="password" name="adminKey" [(ngModel)]="loginData.adminKey" placeholder="Enter admin secret key" class="input-pro font-semibold border-2 border-amber-300 dark:border-amber-600 focus:border-amber-500">
+          <p class="text-xs text-amber-700 dark:text-amber-400">Contact system administrator for the secret key</p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-200">Password</label>
+            <a href="#" class="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline">Forgot password?</a>
+          </div>
+          <input type="password" name="password" [(ngModel)]="loginData.password" placeholder="••••••••" class="input-pro font-semibold">
+        </div>
+
+        <button type="submit" class="w-full btn-primary py-3.5 text-sm font-semibold mt-4" [disabled]="isLoading">
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </button>
+
+      </form>
+
+      <!-- Divider -->
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-hsl(var(--ceh-glass-bg)) text-gray-600 dark:text-gray-400">New to CampusEventHub?</span>
+        </div>
+      </div>
+
+      <!-- Registration Link -->
+      <div class="text-center">
+        <p class="text-sm font-semibold text-gray-700 dark:text-gray-400">
+          Don't have an account? 
+          <a routerLink="/register" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 dark:hover:text-purple-300 transition-colors">Create one now</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

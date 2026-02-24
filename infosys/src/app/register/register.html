@@ -1,0 +1,137 @@
+<div class="relative min-h-screen flex items-center justify-center p-6">
+  <div class="hub-overlay"></div>
+  
+  <div class="w-full max-w-4xl animate-in fade-in zoom-in duration-700 relative z-10">
+    <div class="card-pro p-10 md:p-16 space-y-12">
+      
+      <!-- Header Section -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div class="space-y-3">
+          <h1 class="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-teal-500 bg-clip-text text-transparent">Join CampusEventHub</h1>
+          <p class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Create your account in seconds</p>
+        </div>
+
+        <!-- Role Toggle -->
+        <div class="flex bg-gray-100 dark:bg-gray-700 p-1.5 rounded-2xl border border-gray-200 dark:border-gray-600 relative overflow-hidden w-full md:w-auto">
+          <button type="button" class="flex-1 md:w-36 py-2.5 text-xs font-bold uppercase tracking-wider z-10 transition-colors" 
+            [class.text-purple-600]="selectedRole === 'student'" 
+            [class.text-gray-500]="selectedRole !== 'student'"
+            [class.dark:text-white]="selectedRole === 'student'"
+            [class.dark:text-gray-400]="selectedRole !== 'student'"
+            (click)="selectedRole = 'student'">
+            👨‍🎓 Student
+          </button>
+          <button type="button" class="flex-1 md:w-36 py-2.5 text-xs font-bold uppercase tracking-wider z-10 transition-colors" 
+            [class.text-purple-600]="selectedRole === 'admin'" 
+            [class.text-gray-500]="selectedRole !== 'admin'"
+            [class.dark:text-white]="selectedRole === 'admin'"
+            [class.dark:text-gray-400]="selectedRole !== 'admin'"
+            (click)="selectedRole = 'admin'">
+            🎯 Organizer
+          </button>
+          <div class="absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-3px)] bg-white dark:bg-gray-800 rounded-[0.85rem] transition-transform duration-500 shadow-md"
+            [style.transform]="getIndicatorPosition()"></div>
+        </div>
+      </div>
+
+      <!-- Registration Form -->
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8" #regForm="ngForm" (submit)="$event.preventDefault(); onRegister()">
+        
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">Full Name</label>
+          <input type="text" name="fullName" [(ngModel)]="registerData.fullName" placeholder="John Doe" required 
+            class="input-pro font-semibold">
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">Registration ID</label>
+          <input type="text" name="regNumber" [(ngModel)]="registerData.regNumber" placeholder="STU-2024001" required 
+            class="input-pro font-semibold">
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">Email Address</label>
+          <input type="email" name="email" [(ngModel)]="registerData.email" placeholder="your.email@college.edu" required 
+            class="input-pro font-semibold">
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">College / Institution</label>
+          <input type="text" name="college" [(ngModel)]="registerData.college" placeholder="e.g., ABC College of Engineering" required 
+            class="input-pro font-semibold">
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+            {{ selectedRole === 'student' ? 'Department / Stream' : 'Organization Name' }}
+          </label>
+          <div class="relative">
+            <select *ngIf="selectedRole === 'student'" name="department" [(ngModel)]="registerData.department" class="input-pro appearance-none font-semibold">
+              <option value="" disabled selected>Select your department</option>
+              <option value="cse">Computer Science & Engineering</option>
+              <option value="it">Information Technology</option>
+              <option value="ece">Electronics & Communication</option>
+              <option value="me">Mechanical Engineering</option>
+              <option value="civil">Civil Engineering</option>
+              <option value="other">Other</option>
+            </select>
+            <select *ngIf="selectedRole === 'admin'" name="adminRole" [(ngModel)]="registerData.adminRole" class="input-pro appearance-none font-semibold">
+              <option value="" disabled selected>Select access level</option>
+              <option value="super">Event Manager</option>
+              <option value="event">Event Coordinator</option>
+              <option value="sponsor">Sponsor/Partner</option>
+            </select>
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">Password</label>
+          <input type="password" name="password" [(ngModel)]="registerData.password" placeholder="••••••••" required 
+            class="input-pro font-semibold">
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">Confirm Password</label>
+          <input type="password" name="confirmPassword" [(ngModel)]="registerData.confirmPassword" (input)="checkPasswordMatch()" placeholder="••••••••" required 
+            class="input-pro font-semibold" [class.input-error]="!passwordsMatch && registerData.confirmPassword">
+          <div *ngIf="!passwordsMatch && registerData.confirmPassword" class="text-xs text-red-600 dark:text-red-400 font-semibold">Passwords don't match</div>
+        </div>
+
+        <div class="space-y-2 md:col-span-2" *ngIf="selectedRole === 'admin'">
+          <label class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Organizer Access Key</label>
+          <input type="password" name="adminKey" [(ngModel)]="registerData.adminKey" placeholder="Enter access key (provided by admin)" required 
+            class="input-pro font-semibold border-amber-200 dark:border-amber-600">
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Contact your institution administrator for access key</p>
+        </div>
+
+        <div class="md:col-span-2 flex items-start gap-3 py-1">
+          <input type="checkbox" id="acceptTerms" name="acceptTerms" [(ngModel)]="registerData.acceptTerms" required 
+            class="mt-1.5 w-5 h-5 rounded border-2 border-gray-300 dark:border-gray-600 text-purple-600 cursor-pointer">
+          <label for="acceptTerms" class="text-xs font-semibold text-gray-600 dark:text-gray-400 cursor-pointer">
+            I agree to the <a href="#" class="text-purple-600 dark:text-purple-400 hover:underline font-bold">Terms of Service</a> and 
+            <a href="#" class="text-purple-600 dark:text-purple-400 hover:underline font-bold">Privacy Policy</a>
+          </label>
+        </div>
+
+        <div class="md:col-span-2">
+          <button type="submit" class="w-full btn-primary py-3.5 text-sm font-semibold" [disabled]="!passwordsMatch || !registerData.acceptTerms">
+            Create Account
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Sign In Link -->
+      <div class="pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+        <p class="text-sm font-semibold text-gray-600 dark:text-gray-400">
+          Already have an account? 
+          <a routerLink="/login" class="text-purple-600 dark:text-purple-400 font-bold hover:text-purple-700 dark:hover:text-purple-300 transition-colors">Sign in here</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

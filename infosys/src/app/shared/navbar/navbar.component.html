@@ -1,0 +1,55 @@
+<div class="px-4 md:px-8 py-4 md:py-6 sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-all">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between">
+    
+    <!-- Branding -->
+    <div class="flex items-center gap-3 cursor-pointer group hover:opacity-80 transition-opacity" routerLink="/">
+      <div class="bg-gradient-to-br from-purple-600 to-purple-700 p-2.5 rounded-lg shadow-lg shadow-purple-200 dark:shadow-purple-900/50 group-hover:scale-105 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+      </div>
+      <div class="hidden sm:flex flex-col">
+        <span class="text-lg font-black text-gray-900 dark:text-white tracking-tight">Campus<span class="text-transparent bg-gradient-to-r from-purple-600 to-teal-500 bg-clip-text">EventHub</span></span>
+        <span class="text-[8px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] -mt-0.5">Dashboard</span>
+      </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <div class="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-gray-800 p-1.5 rounded-lg border border-gray-200 dark:border-gray-700">
+      <a routerLink="/dashboard" routerLinkActive="bg-white dark:bg-gray-900 text-purple-600 shadow-sm border border-gray-300 dark:border-gray-600" 
+        class="px-5 py-2 rounded-md text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all">Dashboard</a>
+      <a routerLink="/events" routerLinkActive="bg-white dark:bg-gray-900 text-purple-600 shadow-sm border border-gray-300 dark:border-gray-600" 
+        class="px-5 py-2 rounded-md text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all">Events</a>
+      <a routerLink="/registrations" routerLinkActive="bg-white dark:bg-gray-900 text-purple-600 shadow-sm border border-gray-300 dark:border-gray-600" 
+        class="px-5 py-2 rounded-md text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all">Registrations</a>
+    </div>
+
+    <!-- User Section -->
+    <div class="flex items-center gap-4 md:gap-6">
+      <!-- Notifications -->
+      <button class="relative p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-purple-600 dark:hover:text-purple-400 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+        <span class="absolute top-1.5 right-1.5 h-2.5 w-2.5 bg-red-500 rounded-full"></span>
+      </button>
+
+      <!-- User Profile -->
+      <div class="hidden sm:flex items-center gap-3 pl-4 md:pl-6 border-l border-gray-200 dark:border-gray-700 group cursor-pointer transition-all">
+        <div class="flex flex-col items-end">
+          <span class="text-xs font-bold text-gray-900 dark:text-white leading-none">Welcome!</span>
+          <span class="text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-0.5">User Account</span>
+        </div>
+        <img src="https://ui-avatars.com/api/?name=User&background=a855f7&color=fff&bold=true" alt="Profile" 
+          class="h-9 w-9 rounded-lg shadow-md group-hover:ring-2 group-hover:ring-purple-500/30 transition-all">
+      </div>
+
+      <!-- Logout Button (Mobile) -->
+      <button class="md:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-600 dark:hover:text-red-400 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</div>

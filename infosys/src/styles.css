@@ -1,0 +1,471 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CampusEventHub - Color Palette & Theme
+   ============================================ */
+
+:root {
+  /* Primary Event Brand - Dynamic Purple */
+  --ceh-primary: 262 80% 50%;        /* Vibrant Purple */
+  --ceh-primary-light: 262 100% 60%; /* Bright Purple */
+  --ceh-primary-dark: 262 65% 40%;   /* Deep Purple */
+  
+  /* Secondary Accent - Energetic Teal */
+  --ceh-accent: 174 74% 50%;         /* Teal/Cyan */
+  --ceh-accent-light: 174 100% 60%;  /* Bright Teal */
+  
+  /* Status Colors */
+  --ceh-success: 142 76% 36%;        /* Event Success - Dark Green */
+  --ceh-warning: 38 92% 50%;         /* Event Alert - Golden */
+  --ceh-error: 0 84% 60%;            /* Event Cancelled - Rose */
+  --ceh-info: 220 81% 53%;           /* Event Info - Blue */
+  
+  /* Light Mode - Sophisticated & Clean */
+  --ceh-bg: 0 0% 100%;               /* Pure White Background */
+  --ceh-surface: 210 40% 96%;        /* Light surface cards */
+  --ceh-surface-secondary: 210 40% 93%;
+  --ceh-text-primary: 220 13% 13%;   /* Almost Black */
+  --ceh-text-secondary: 220 10% 35%; /* Dark Gray */
+  --ceh-text-tertiary: 220 8% 60%;   /* Medium Gray */
+  
+  /* Glass Morphism - Light */
+  --ceh-glass-bg: rgba(255, 255, 255, 0.7);
+  --ceh-glass-border: rgba(0, 0, 0, 0.1);
+  
+  /* Shadow */
+  --ceh-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --ceh-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.06);
+  --ceh-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode */
+html.dark {
+  --ceh-bg: 217 32% 11%;             /* Very Dark Blue */
+  --ceh-surface: 217 32% 20%;        /* Dark Surface - Increased from 17% for better visibility */
+  --ceh-surface-secondary: 217 32% 27%;
+  --ceh-text-primary: 210 100% 98%;  /* Pure White */
+  --ceh-text-secondary: 210 20% 80%; /* Light Gray */
+  --ceh-text-tertiary: 210 15% 60%;  /* Medium Gray */
+  
+  --ceh-glass-bg: rgba(28, 40, 70, 0.6);
+  --ceh-glass-border: rgba(255, 255, 255, 0.15);
+  --ceh-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --ceh-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --ceh-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+body.body-dark {
+  --ceh-bg: 217 32% 11%;
+  --ceh-surface: 217 32% 20%;
+  --ceh-surface-secondary: 217 32% 27%;
+  --ceh-text-primary: 210 100% 98%;
+  --ceh-text-secondary: 210 20% 80%;
+  --ceh-text-tertiary: 210 15% 60%;
+  --ceh-glass-bg: rgba(28, 40, 70, 0.6);
+  --ceh-glass-border: rgba(255, 255, 255, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: hsl(var(--ceh-bg));
+  color: hsl(var(--ceh-text-primary));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+body.body-light {
+  background: hsl(var(--ceh-bg));
+}
+
+body.body-dark {
+  background: hsl(var(--ceh-bg));
+}
+
+/* ============================================
+   Selection & Accessibility
+   ============================================ */
+::selection {
+  background: hsl(var(--ceh-primary));
+  color: white;
+}
+
+::-moz-selection {
+  background: hsl(var(--ceh-primary));
+  color: white;
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--ceh-surface));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--ceh-primary) / 0.3);
+  border-radius: 10px;
+  border: 2px solid hsl(var(--ceh-surface));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--ceh-primary) / 0.6);
+}
+
+/* ============================================
+   Card & Surface Components with Glassmorphism
+   ============================================ */
+.card-pro, .event-card, [class*="card"] {
+  background: hsl(var(--ceh-surface)) !important;
+  border: 1px solid hsl(var(--ceh-surface-secondary) / 0.5) !important;
+  border-radius: 1.25rem;
+  box-shadow: var(--ceh-shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: hsl(var(--ceh-text-primary)) !important;
+}
+
+html.dark .card-pro,
+html.dark .event-card,
+html.dark [class*="card"] {
+  background: hsl(var(--ceh-surface)) !important;
+  border-color: hsl(var(--ceh-surface-secondary) / 0.8) !important;
+  color: hsl(var(--ceh-text-primary)) !important;
+  box-shadow: var(--ceh-shadow-md) !important;
+}
+
+.card-glass, .glass-card {
+  background: var(--ceh-glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ceh-glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--ceh-shadow-lg);
+}
+
+.card-pro:hover {
+  border-color: hsl(var(--ceh-primary) / 0.3);
+  box-shadow: var(--ceh-shadow-lg), 0 0 20px hsl(var(--ceh-primary) / 0.1);
+  transform: translateY(-4px);
+}
+
+.card-glass:hover {
+  border-color: hsl(var(--ceh-primary) / 0.4);
+  box-shadow: var(--ceh-shadow-lg), 0 0 30px hsl(var(--ceh-primary) / 0.15);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: hsl(var(--ceh-text-primary));
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+p {
+  color: hsl(var(--ceh-text-secondary));
+}
+
+a {
+  color: hsl(var(--ceh-primary));
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--ceh-primary-light));
+  text-decoration: underline;
+}
+
+/* ============================================
+   Background Overlay with Aesthetic Effects
+   ============================================ */
+.hub-overlay, .background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, hsl(var(--ceh-primary) / 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, hsl(var(--ceh-accent) / 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, hsl(var(--ceh-primary) / 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: float 15s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 50px 50px;
+  }
+}
+
+html.dark .hub-overlay,
+html.dark .background-overlay {
+  background-image: 
+    radial-gradient(circle at 20% 30%, hsl(var(--ceh-primary) / 0.20) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, hsl(var(--ceh-accent) / 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, hsl(262 80% 50% / 0.08) 0%, transparent 60%);
+}
+
+/* ============================================
+   Button System
+   ============================================ */
+.btn-primary, [class*="btn-primary"] {
+  background: linear-gradient(135deg, hsl(var(--ceh-primary)), hsl(var(--ceh-primary-dark)));
+  color: white;
+  padding: 0.75rem 1.75rem;
+  min-height: 2.75rem;
+  border-radius: 0.875rem;
+  border: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: var(--ceh-shadow-md);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ceh-shadow-lg), 0 0 30px hsl(var(--ceh-primary) / 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--ceh-shadow-sm);
+}
+
+.btn-secondary {
+  background: hsl(var(--ceh-surface));
+  color: hsl(var(--ceh-text-primary));
+  border: 1.5px solid hsl(var(--ceh-primary) / 0.3);
+  padding: 0.75rem 1.75rem;
+  min-height: 2.75rem;
+  border-radius: 0.875rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: hsl(var(--ceh-primary) / 0.7);
+  background: hsl(var(--ceh-primary) / 0.05);
+  color: hsl(var(--ceh-primary));
+  box-shadow: var(--ceh-shadow-md);
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+}
+
+/* ============================================
+   Form Elements
+   ============================================ */
+.input-pro, input[type="text"], input[type="email"], input[type="password"], select, textarea {
+  background: hsl(var(--ceh-surface-secondary) / 0.5);
+  color: hsl(var(--ceh-text-primary));
+  border: 1.5px solid hsl(var(--ceh-surface-secondary));
+  border-radius: 0.875rem;
+  padding: 0.875rem 1.125rem;
+  width: 100%;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-pro:focus, input:focus, select:focus, textarea:focus {
+  border-color: hsl(var(--ceh-primary));
+  background: hsl(var(--ceh-surface));
+  box-shadow: 0 0 0 3px hsl(var(--ceh-primary) / 0.1), var(--ceh-shadow-sm);
+}
+
+.input-pro::placeholder, input::placeholder, textarea::placeholder {
+  color: hsl(var(--ceh-text-tertiary));
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+/* ============================================
+   Labels & Text Elements
+   ============================================ */
+label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--ceh-text-secondary));
+  margin-bottom: 0.5rem;
+  margin-left: 0.125rem;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   Login/Register Page Aesthetics
+   ============================================ */
+
+/* Decorative Blobs for Auth Pages */
+.hub-overlay::before,
+.hub-overlay::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+}
+
+.hub-overlay::before {
+  width: 300px;
+  height: 300px;
+  background: hsl(var(--ceh-primary) / 0.4);
+  top: -50px;
+  left: -50px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.hub-overlay::after {
+  width: 250px;
+  height: 250px;
+  background: hsl(var(--ceh-accent) / 0.3);
+  bottom: -30px;
+  right: -30px;
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+html.dark .hub-overlay::before {
+  background: hsl(var(--ceh-primary) / 0.5);
+}
+
+html.dark .hub-overlay::after {
+  background: hsl(var(--ceh-accent) / 0.4);
+}
+
+/* Auth Page Container Mixin */
+.relative.min-h-screen.flex.items-center.justify-center {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced Background for Auth Pages */
+html.dark {
+  background: linear-gradient(135deg, #1a2847 0%, #0f1419 100%);
+}
+
+body.body-dark {
+  background: linear-gradient(135deg, #1a2847 0%, #0f1419 100%);
+}
+
+/* Light Mode Linear Gradient */
+:root {
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
+}
+
+.input-error {
+  border-color: hsl(var(--ceh-error)) !important;
+  background: hsl(var(--ceh-error) / 0.05) !important;
+}
+
+.error-message {
+  color: hsl(var(--ceh-error));
+  font-size: 0.8rem;
+  margin-top: 0.375rem;
+  font-weight: 500;
+}
+
+.success-message {
+  color: hsl(var(--ceh-success));
+  font-size: 0.8rem;
+  margin-top: 0.375rem;
+  font-weight: 500;
+}

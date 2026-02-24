@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  background: radial-gradient(circle at center, #0a0b1e 0%, #02030d 100%);
+}
+
+.animate-in {
+  animation: enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(20px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+select {
+  background-image: none !important;
+}
+
+select option {
+  background: #0a0b1e;
+  color: white;
+}
+
+input::placeholder {
+  transition: all 0.3s ease;
+}
+
+input:focus::placeholder {
+  transform: translateX(10px);
+  opacity: 0;
+}
